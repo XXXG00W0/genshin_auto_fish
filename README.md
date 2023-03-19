@@ -1,5 +1,6 @@
 # 注意
-本fork为本人使用方便而创建，修改添加了少量代码以符合本人的使用习惯
+本fork为本人使用方便而创建，修改添加了少量代码以符合本人的使用习惯。<br>
+以下为[原项目](https://github.com/7eu7d7/genshin_auto_fish)的README.md文本
 
 # Introduction
 **现已支持不同分辨率屏幕**
