@@ -7,6 +7,9 @@ import numpy as np
 import win32api, win32con, win32gui, win32ui
 from pathlib import Path
 import yaml
+import ctypes
+user32dll = ctypes.windll.LoadLibrary ("C:\\Windows\\System32\\user32.dll")
+
 
 CONFIG_PATH = Path(__file__).parent.parent.joinpath("config.yaml")
 assert CONFIG_PATH.is_file()
@@ -148,3 +151,12 @@ def psnr(img1, img2):
 
 def distance(x1, y1, x2, y2):
     return np.sqrt(np.square(x1 - x2) + np.square(y1 - y2))
+
+
+def getCurrentWindow(windowName):
+    hwnd = win32gui.FindWindow(None, windowName)
+    return hwnd
+
+
+def setWindowForeground(hwnd):
+    user32dll.SwitchToThisWindow(hwnd, True)
