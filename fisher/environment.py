@@ -88,8 +88,10 @@ class FishFind:
         self.ff_dict={'hua jiang':0, 'ji yu':1, 'die yu':2, 'jia long':3, 'pao yu':3}
         self.dist_dict={'hua jiang':130, 'ji yu':80, 'die yu':80, 'jia long':80, 'pao yu':80}
         self.food_rgn=[580,400,740,220]
+        die_yu = input("是否钓雷鸣仙？(空格跳过或输入 Y/ N)")
+        if die_yu and die_yu.lower() == 'y':
+            self.last_fish_type='die yu' # 钓雷鸣仙
         self.last_fish_type='hua jiang'
-        #self.last_fish_type='die yu' # 钓雷鸣仙
         self.show_det=show_det
         os.makedirs('img_tmp/', exist_ok=True)
 
@@ -164,16 +166,21 @@ class FishFind:
         bbox_food = match_img(img, self.food_imgs[self.ff_dict[fish_type]], type=cv2.TM_SQDIFF_NORMED)
         mouse_click(bbox_food[4]+self.food_rgn[0], bbox_food[5]+self.food_rgn[1])
         time.sleep(0.5)
-        mouse_click(1183, 756)
+        # mouse_click(1183, 756)
+        mouse_click(1183, 770, button=MOUSE_LEFT)
+        # time.sleep(5)
 
     def do_fish(self, fish_init=True) -> bool:
+        setWindowForeground(getCurrentWindow("原神"))
+
         if fish_init:
             self.fish_list = self.get_fish_types()
 
         # return false if fish_list is empty
         if not self.fish_list:
             return False
-        
+
+        # print(self.fish_list)
         if self.fish_list[0]!=self.last_fish_type:
             self.select_food(self.fish_list[0])
             self.last_fish_type = self.fish_list[0]
